@@ -1,0 +1,129 @@
+installing sudo:
+	first switch to root
+		su -
+	install sudo with
+		apt install sudo
+			can check if successfull with
+				dpkg -l | grep sudo
+
+
+	adding user to sudo group
+		adduser <username> sudo
+			can check with..
+				getent group sudo
+	
+
+	reboot so the changes will take effect and use sudo -v to verify sudopowers
+
+
+	running root privileged commands:
+	from here can run them with prefix 'sudo'
+
+
+	configuring sudo
+		sudo vi /etc/sudoers.d/<filename>
+			no ~ or . in the filename
+		
+		add to the file:
+
+		to limit entries for pw:
+			Defaults	passwd_tries=3
+
+		to add a custom error message to:
+			Defaults	badpass_message="<custom error message>"
+
+		to log all sudo commands to:
+			Defaults	logfile="/var/log/sudo/<filename>"
+
+		to archive all sudo in & outputs to /var/log/sudo
+			Defaults	log_input,log_output
+
+			Defaults	iolog_dir="/var/log/sudo"
+
+		to require TTY:
+			Defaults	requiretty
+
+		to set sudo paths to:
+			Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+
+	SSH setup
+		install
+			sudo apt install openssh-server
+		verify if its good
+			dpkg -l | grep ssh
+		config ssh via:
+			sudo vi /etc/ssh/sshd_config
+				change Port 22 to Port 4242
+
+				change PermitRootLogin prohibit-password to PermitRootLogin no
+		check SSH status via
+			sudo service ssh status
+	
+	UFW setup
+		install
+			sudo apt install ufw
+		verify
+			dpkg -l | grep ufw
+		enable firewall via
+			sudo ufw enable
+		allow incoming connections using port 4242 via
+			sudo ufw allow 4242
+		check ufw status via
+			sudo ufw status
+		
+	Connecting to server via SSH
+		SSH into your virtual machine
+			ssh <username>@<ip address> -p 4242
+				can check the ip address via
+					ip addr or hostname -I
+			terminate ssh session at anytime via logout
+
+	User management
+		config password policy via
+			sudo vi /etc/login.defs
+				PASS_MAX_DAYS 99999 to PASS_MAX_DAYS 30
+
+				PASS_MIN_DAYS 0 to PASS_MIN_DAYS 2
+
+				PASS_WARN_AGE 7
+
+		password strength
+			sudo apt install libpam-pwquality
+		verify
+			dpkg -l | grep libpam-pwquality
+		config via
+			sudo vi /etc/pam.d/common-password
+				add to the line password requisite these options:
+
+				pw min length
+					minlen=10
+				to req the pw to contain atleast one uppercase char and a numeric char
+					ucredit=-1 dcredit=-1
+				to set max 3 consecutive identical chars
+					maxrepeat=3
+				to reject pw if it contains the username in some form
+					reject_username
+				to set the number of changes required in the new pw from the old pw
+					difok=7
+				to implement the same policy on root
+					enfore_for_root
+
+		Creating a new group
+			sudo addgroup user42
+		add user to the group (previously created)
+			sudo adduser <username> user42
+		verify if its added
+			getent group user42
+		
+
+		Setting up CRON
+			configure
+				sudo crontab -u root -e
+			change the last line from # m h	dom mon dow command to
+				*/10 * * * * sh /path/to/script
+			check roots cron job scheduled via
+				sudo crontab -u root -l
+		
+
+		
+

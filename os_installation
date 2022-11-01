@@ -1,0 +1,19 @@
+installing the os
+	in my case it is Debian 11 Bullseye
+
+have in mind if bonus will be handled or not because the setup need to be done in that manner
+structure matters!
+
+
+setup the folder to install to
+attach the actual ISO file later and start the VM for install
+
+install
+	choose the right settings
+		setup hostname and password
+		username
+		password
+	partitioning method!
+		manual
+			SCSI1 (0,0,0)
+			
