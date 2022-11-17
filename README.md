@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-	<b><i>You can do anything you want to, this is you world!</i></b><br>
+	<b><i>You can do anything you want to, this is your world!</i></b><br>
 </p>
 
 <p align="center">
