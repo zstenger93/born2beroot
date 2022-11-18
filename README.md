@@ -259,9 +259,9 @@ To set the min length of the pw:
 ```
 minlen=10
 ```
-Req to contain at least one uppercase and one numeric char:
+Req to contain at least one lower, uppercase and one numeric char:
 ```
-ucredit=-1 dcredit=-1
+lcredit=-1 ucredit=-1 dcredit=-1
 ```
 It cannot contain more than 3 consecutive identical chars with:
 ```
