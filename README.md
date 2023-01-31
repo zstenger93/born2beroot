@@ -1,5 +1,8 @@
 <h1 align="center">
+	<p>
 	✏️ Born2beroot
+	</p>
+	<img src="https://badge42.vercel.app/api/v2/cl9sfj1oy00110fjrw3eky83q/project/2870239">
 </h1>
 
 <p align="center">
